@@ -7,14 +7,27 @@ function tracking_interface() {
   module.network_kis = null;
   module.auto_update_func = () => {};
 
+  module.status = status
+  function status() {
+    if ((module.network_kis && module.network_kis.device.attached > -1)
+       && (module.network_objectives && module.network_objectives.device.attached > -1)) {
+         return true;
+    }
+    return false;
+  }
+
+
+, device
   module.getConnected = getConnected
-  function getConnected() {
-    module.network_kis = new create_network(console, isReact=false);
+  function getConnected(port, errorhandler) {
+    port = port || 8080;
+    console.log;
+    module.network_kis = new create_network(console, port, errorhandler, isReact=false);
     module.network_kis.onConnect().then(
       () => { this.timerID = setInterval( module.keep_updating_kis, 100) },
       () => {console.log("Failure on KI connection") }
     );
-    module.network_objectives = new create_network(console, isReact=false);
+    module.network_objectives = new create_network(console, port, errorhandler, isReact=false);
     module.network_objectives.onConnect().then(
       () => { setTimeout(module.get_objectives_from_metadata, 1000);
               this.objectiveTimerID = setInterval( module.keep_updating_objectives, 1000) },

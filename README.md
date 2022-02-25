@@ -17,9 +17,14 @@ This function has no parameters.
 You will also have to decide how you want people to interface with connecting to the server. Whether it be on load of the page, when they click a button, whatever, that's the getConnected() function. the disconnect() function handles a manual disconnect.
 
 2) Usage once in your project.
-You will need to set up usb2snes or qusb2snes as appropriate: the docs for this are at http://usb2snes.com/ and https://skarsnik.github.io/QUsb2snes/ 
+You will need to set up usb2snes or qusb2snes as appropriate: the docs for this are at http://usb2snes.com/ and https://skarsnik.github.io/QUsb2snes/
 
 Once it is up and running with a single connected device, things should start working.
 
 3) Examples
 The 'samples' directory contains some example mapping JS files.
+
+4) Error handling
+The getConnected function takes an optional parameter for the errorhandler, and the interface exposes a 'status' function.
+If you need to know whether the interface is in a 'bad' state, call status()
+Whenever an error happens the errorhandler will be called with a string, which you can present as you will.
