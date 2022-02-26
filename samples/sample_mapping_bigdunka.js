@@ -43,7 +43,7 @@
     0x0034: KeyItemCheck.SYLPH_CAVE,
     0x0035: KeyItemCheck.BAHAMUT,
     0x0037: KeyItemCheck.MOON_CRYSTAL,
-    0x003B KeyItemCheck.MOON_MASAMUNE,
+    0x003B: KeyItemCheck.MOON_MASAMUNE,
     0x0036: KeyItemCheck.MOON_MURASAME,
     0x0039: KeyItemCheck.MOON_RIBBON,
     0x003A: KeyItemCheck.MOON_RIBBON,
