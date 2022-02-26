@@ -11,6 +11,11 @@ auto_set_used_ki - the function the tracker will call when it has information ab
 auto_set_loc_ki - the function the tracker will call when it has information about a KI location's status
 The parameters for the above 3 are the ID of the slot (as defined in the memory locations above) and whether the flag is set (true or false)
 
+If you wish to handle objectives as well, these two functions will need to be handled:
+auto_set_live_objectives - This is called once at the beginning to read the metadata from the file. (Warning: limited to ~20 objectives). It will set the objectives and flags variables on the tracker.
+auto_set_objective - This is called when an objective should be marked, parameters are the ID of the slot and whether the flag is set (just like the other sets.)
+
+Everyone needs to have this defined
 auto_update_func - the function the tracker will call after having updated the raw information: this should trigger any advfanced logic/UI changes
 This function has no parameters.
 
@@ -25,6 +30,6 @@ Once it is up and running with a single connected device, things should start wo
 The 'samples' directory contains some example mapping JS files.
 
 4) Error handling
-The getConnected function takes an optional parameter for the errorhandler, and the interface exposes a 'status' function.
+The getConnected function takes an optional parameter for the errorhandler, and the tracker exposes a 'status()' function.
 If you need to know whether the interface is in a 'bad' state, call status()
-Whenever an error happens the errorhandler will be called with a string, which you can present as you will.
+Whenever an error happens the errorhandler will be called with a string, which you can present as you will. 
