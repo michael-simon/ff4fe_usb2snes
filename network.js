@@ -1,4 +1,4 @@
-function create_network(parent, port, errorhandler, isReact = true) {
+function create_network(parent, port, messagehandler, isReact = true) {
     const snes = new usb2snes();
 
     let socket = null;
@@ -92,8 +92,8 @@ function create_network(parent, port, errorhandler, isReact = true) {
                 const message = `Could not attach to device: ${error}`;
                 parent.log(message);
                 /* Set to 1 to signal a reconnect to socket_onclose */
-                if (errorhandler) {
-                  errorhandler(message);
+                if (messagehandler) {
+                  messagehandler(message);
                 }
         				device.state = 1;
                 device.attached = -1;
@@ -104,8 +104,8 @@ function create_network(parent, port, errorhandler, isReact = true) {
         catch (error) {
             const message = `Could not attach to device: ${error}`;
             parent.log(message);
-            if (errorhandler) {
-              errorhandler(message);
+            if (messagehandler) {
+              messagehandler(message);
             }
             /* Set to 1 to signal a reconnect to socket_onclose */
             device.state = 0;
@@ -117,6 +117,11 @@ function create_network(parent, port, errorhandler, isReact = true) {
 
     async function disconnect() {
       disconnecting = true;
+      const message = `Intentional disconnect`;
+      parent.log(message);
+      if (messagehandler) {
+        messagehandler(message);
+      }
       device.state = 0;
       device.attached = -1;
       socket.close();
@@ -131,7 +136,7 @@ function create_network(parent, port, errorhandler, isReact = true) {
         }
     }
 
-    return { onConnect , disconnect,  snes };
+    return { onConnect , disconnect,  snes, device };
 }
 
 // Probably not needed, but left here just in case

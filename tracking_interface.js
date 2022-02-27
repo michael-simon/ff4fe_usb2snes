@@ -9,15 +9,13 @@ function tracking_interface() {
 
   module.status = status
   function status() {
-    if ((module.network_kis && module.network_kis.device.attached > -1)
-       && (module.network_objectives && module.network_objectives.device.attached > -1)) {
+    if ((module.network_kis && module.network_kis.device && module.network_kis.device.attached > -1)
+       && (module.network_objectives && module.network_objectives.device && module.network_objectives.device.attached > -1)) {
          return true;
     }
     return false;
   }
 
-
-, device
   module.getConnected = getConnected
   function getConnected(port, errorhandler) {
     port = port || 8080;
@@ -59,7 +57,7 @@ function tracking_interface() {
   module.flags = null; // WARNING: Flags will be <hidden> on a mystery seed
   module.get_objectives_from_metadata = get_objectives_from_metadata;
   function get_objectives_from_metadata() {
-      network_objectives.snes.send(JSON.stringify({
+      module.network_objectives.snes.send(JSON.stringify({
          "Opcode" : "GetAddress",
          "Space" : "SNES",
          "Operands": ["0x1FF000", '400']
